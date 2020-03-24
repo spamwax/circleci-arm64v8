@@ -1,8 +1,8 @@
 FROM arm64v8/debian:stretch-slim
 
 SHELL ["/bin/bash", "-c"]
-# RUN sudo apt-get updat;\
-#     sudo apt-get install file
+RUN sudo apt-get updat;\
+    sudo apt-get install file
 COPY qemu-aarch64-static /usr/bin
 COPY qemu-arm-static /usr/bin
 
