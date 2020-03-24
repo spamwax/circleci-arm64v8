@@ -1,0 +1,80 @@
+version: 2
+jobs:
+  linux:
+    docker:
+    - image: hamiid/circleci-rust:latest
+    environment:
+    - RUST_BACKTRACE: '1'
+    - CIRCLE_OS_NAME: linux
+    steps:
+    - run:
+        name: install debian shit
+        command: |
+          sudo apt-get update
+          sudo apt-get remove --purge binutils-aarch64-linux-gnu
+          sudo apt-get remove --purge qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+          sudo apt-get install binutils-aarch64-linux-gnu
+          sudo apt-get install qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+    - checkout
+    - run:
+        name: Build
+        command: |
+          cargo generate-lockfile
+          cargo build --target aarch64-unknown-linux-gnu
+    - setup_remote_docker
+    - run:
+        command: sleep 10 && docker pull arm64v8/debian:stretch-slim
+    - run:
+        name: shit
+        command: |
+          cp /usr/bin/qemu-arm-static .
+          cp /usr/bin/qemu-aarch64-static .
+          cp target/aarch64-unknown-linux-gnu/debug/hello .
+          docker build . -t 'arm64v8rust:testing'
+          docker run --rm 'arm64v8rust:testing'
+workflows:
+  version: 2
+  linux-test:
+    jobs:
+    - linux
+
+# Original config.yml file:
+# version: 2.1
+# 
+# jobs:
+#   linux:
+#     docker:
+#       - image: hamiid/circleci-rust:latest
+#     environment:
+#       RUST_BACKTRACE: \"1\"
+#       CIRCLE_OS_NAME: linux
+#     steps:
+#       - run:
+#           name: install debian shit
+#           command: |
+#             sudo apt-get update
+#             sudo apt-get remove --purge binutils-aarch64-linux-gnu
+#             sudo apt-get remove --purge qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+#             sudo apt-get install binutils-aarch64-linux-gnu
+#             sudo apt-get install qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+#       - checkout
+#       - run:
+#           name: Build
+#           command: |
+#             cargo generate-lockfile
+#             cargo build --target aarch64-unknown-linux-gnu
+#       - setup_remote_docker
+#       - run: sleep 10 && docker pull arm64v8/debian:stretch-slim
+#       - run:
+#           name: shit
+#           command: |
+#             cp /usr/bin/qemu-arm-static .
+#             cp /usr/bin/qemu-aarch64-static .
+#             cp target/aarch64-unknown-linux-gnu/debug/hello .
+#             docker build . -t 'arm64v8rust:testing'
+#             docker run --rm 'arm64v8rust:testing'
+# workflows:
+#   version: 2.1
+#   linux-test:
+#     jobs:
+#       - linux
