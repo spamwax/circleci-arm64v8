@@ -4,7 +4,7 @@ SHELL ["/bin/bash", "-c"]
 COPY qemu-aarch64-static /usr/bin
 COPY qemu-arm-static /usr/bin
 
-COPY hello /usr/bin/  
+COPY rmate /usr/bin/  
 # RUN export QEMU_LD_PREFIX=/usr/aarch64-linux-gnu
 
-CMD ["/usr/bin/qemu-aarch64-static", "/usr/bin/hello"]
+CMD ["/usr/bin/qemu-aarch64-static", "/usr/bin/rmate"]
