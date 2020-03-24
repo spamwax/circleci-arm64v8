@@ -19,8 +19,8 @@ jobs:
     - run:
         name: Build
         command: |
-          cargo update
-          cargo generate-lockfile
+          # cargo update
+          # cargo generate-lockfile
           cargo build --target aarch64-unknown-linux-gnu
     - setup_remote_docker
     - run:
@@ -62,8 +62,8 @@ workflows:
 #       - run:
 #           name: Build
 #           command: |
-#             cargo update
-#             cargo generate-lockfile
+#             # cargo update
+#             # cargo generate-lockfile
 #             cargo build --target aarch64-unknown-linux-gnu
 #       - setup_remote_docker
 #       - run: sleep 10 && docker pull arm64v8/debian:stretch-slim
