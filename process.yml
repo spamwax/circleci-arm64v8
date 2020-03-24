@@ -11,10 +11,10 @@ jobs:
         name: install debian shit
         command: |
           sudo apt-get update
-          sudo apt-get remove --purge binutils-aarch64-linux-gnu
-          sudo apt-get remove --purge qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
-          sudo apt-get install binutils-aarch64-linux-gnu
-          sudo apt-get install qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+          # sudo apt-get remove --purge binutils-aarch64-linux-gnu
+          # sudo apt-get remove --purge qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+          # sudo apt-get install binutils-aarch64-linux-gnu
+          # sudo apt-get install qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
     - checkout
     - run:
         name: Build
@@ -53,10 +53,10 @@ workflows:
 #           name: install debian shit
 #           command: |
 #             sudo apt-get update
-#             sudo apt-get remove --purge binutils-aarch64-linux-gnu
-#             sudo apt-get remove --purge qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
-#             sudo apt-get install binutils-aarch64-linux-gnu
-#             sudo apt-get install qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+#             # sudo apt-get remove --purge binutils-aarch64-linux-gnu
+#             # sudo apt-get remove --purge qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
+#             # sudo apt-get install binutils-aarch64-linux-gnu
+#             # sudo apt-get install qemu-utils qemu-system-arm qemu-system-common qemu-utils qemu-user-static
 #       - checkout
 #       - run:
 #           name: Build
