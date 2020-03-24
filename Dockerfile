@@ -7,4 +7,4 @@ COPY qemu-arm-static /usr/bin
 COPY rmate /usr/bin/  
 # RUN export QEMU_LD_PREFIX=/usr/aarch64-linux-gnu
 
-CMD ["/usr/bin/qemu-aarch64-static", "/usr/bin/rmate"]
+CMD ["/usr/bin/qemu-aarch64-static", "/usr/bin/rmate", "--help"]
